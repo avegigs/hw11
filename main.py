@@ -12,8 +12,8 @@ def error_handler(func):
             return 'Give me name and phone please'
         except IndexError:
             return 'Enter user name'
-        except Exception:
-            return 'Other ERROR'
+        # except Exception:
+        #     return 'Other ERROR'
     return inner
 
 
@@ -38,7 +38,7 @@ def change_phone(name, old_phone, new_phone):
     record = users.get(name)
     old_phone = Phone(old_phone)
     new_phone = Phone(new_phone)
-    tel = record.get_phone(old_phone)
+    tel = record.get_phone(old_phone.value)
     if tel:
         record.edit_phone(tel, new_phone)
     else:
