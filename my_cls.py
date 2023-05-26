@@ -8,7 +8,7 @@ class AddressBook(UserDict):
         key = record.name.value
         self.data[key] = record
         # print(f'key is {key}')
-        
+
     def iterator(self, item_number):
         counter = 0
         result = ''
@@ -31,7 +31,6 @@ class AddressBook(UserDict):
     #                     search_result.append(record)
     #                     break
     #     return search_result
-
 
 
 class Field:
@@ -57,7 +56,7 @@ class Field:
 class Name(Field):
 
     def __init__(self, value):
-        super().__init__(value)
+        self.value = value
     # def __init__(self, name):
     #     self.value = name
     #     self.name = name
@@ -72,21 +71,27 @@ class Name(Field):
 class Phone(Field):
 
     def __init__(self, value):
-        super().__init__(value)
-        self.phone_number = ''
+        self.value = value
+
 
     @Field.value.setter
     def value(self, value):
         if not re.match(r'^\+38\d{10}$', value):
             raise ValueError(
                 "Phone number should be in the format +380XXXXXXXXX")
-        self.__value = value
+        Field.value.fset(self, value)
 
     def __str__(self) -> str:
         return self.__value
 
     def __repr__(self) -> str:
-        return self.__value
+        return self.value
+
+        # @Private.value.setter
+    # def value(self, value):
+    #     if not isinstance(value, int):
+    #         raise Exception(f"'{value}' is not a valid")
+    #     Private.value.fset(self, value)
 
 
 class Birthday(Field):
@@ -116,7 +121,7 @@ class Record:
         return f'{self.phones}'
 
     def add_phone(self, phone: Phone):
-        self.phones.append(phone)
+        self.phones.append(phone.value)
 
     def remove_phone(self, phone):
         self.phones.remove(phone)
@@ -130,7 +135,7 @@ class Record:
 
     def get_phone(self, old_phone):
         for phone in self.phones:
-            if phone.value == old_phone.value:
+            if phone == old_phone:
                 return phone
             else:
                 return None
@@ -148,28 +153,18 @@ class Record:
 # phone1 = Phone('+380681537636')
 # birthday1 = Birthday('27.05.1988')
 
-# # phone2 = Phone('67')
-# # phone3 = Phone('89')
 # phone4 = Phone('+380678889966')
 
 # name1 = Name('Angle')
 # record1 = Record(name1, birthday1)
 # record1.add_phone(phone1)
-# # record1.add_phone(phone2)
-# # record1.add_phone(phone3)
-# record1.edit_phone(phone1, phone4)
+# record1.add_phone(phone4)
+
 # print(record1.days_to_birthday())
 
 # address = AddressBook()
 # address.add_record(record1)
-# # record1.edit_phone(phone2, phone4)
-# # print(f'-----------{type(phone2)}--------{type(phone4)}')
-# # address.add_record(record1)
-# # for tel in record1.phones:
-# #     print(type(tel), str(tel))
+
+# print(phone1.value)
 # print(record1)
 # print(address)
-# print(record1.name, phone1)
-# # print(record1.phones)
-# # print(phone1.phone_number)
-# print(birthday1)
