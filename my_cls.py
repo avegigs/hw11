@@ -73,7 +73,6 @@ class Phone(Field):
     def __init__(self, value):
         self.value = value
 
-
     @Field.value.setter
     def value(self, value):
         if not re.match(r'^\+38\d{10}$', value):
@@ -99,6 +98,7 @@ class Birthday(Field):
     @Field.value.setter
     def value(self, value):
         self.__value = datetime.strptime(value, '%d.%m.%Y').date()
+        Field.value.fset(self, value)
 
     def __str__(self) -> str:
         return datetime.strftime(self.__value, '%d.%m.%Y')
@@ -150,21 +150,23 @@ class Record:
         return (birth.replace(year=now.year + 1) - now).days
 
 
-# phone1 = Phone('+380681537636')
-# birthday1 = Birthday('27.05.1988')
+phone1 = Phone('+380681537636')
+birthday1 = Birthday('27.05.1988')
 
-# phone4 = Phone('+380678889966')
 
-# name1 = Name('Angle')
-# record1 = Record(name1, birthday1)
-# record1.add_phone(phone1)
-# record1.add_phone(phone4)
+phone4 = Phone('+380678889966')
 
-# print(record1.days_to_birthday())
+name1 = Name('Angle')
+record1 = Record(name1, birthday1)
+record1.add_phone(phone1)
+record1.add_phone(phone4)
 
-# address = AddressBook()
-# address.add_record(record1)
+print(record1.days_to_birthday())
 
-# print(phone1.value)
-# print(record1)
-# print(address)
+address = AddressBook()
+address.add_record(record1)
+
+print(phone1.value)
+print(birthday1.value)
+print(record1)
+print(address)
