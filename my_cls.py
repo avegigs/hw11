@@ -150,23 +150,23 @@ class Record:
         return (birth.replace(year=now.year + 1) - now).days
 
 
-phone1 = Phone('+380681537636')
-birthday1 = Birthday('27.05.1988')
+# phone1 = Phone('+380681537636')
+# birthday1 = Birthday('27.05.1988')
 
 
-phone4 = Phone('+380678889966')
+# phone4 = Phone('+380678889966')
 
-name1 = Name('Angle')
-record1 = Record(name1, birthday1)
-record1.add_phone(phone1)
-record1.add_phone(phone4)
+# name1 = Name('Angle')
+# record1 = Record(name1, birthday1)
+# record1.add_phone(phone1)
+# record1.add_phone(phone4)
 
-print(record1.days_to_birthday())
+# print(record1.days_to_birthday())
 
-address = AddressBook()
-address.add_record(record1)
+# address = AddressBook()
+# address.add_record(record1)
 
-print(phone1.value)
-print(birthday1.value)
-print(record1)
-print(address)
+# print(phone1.value)
+# print(birthday1.value)
+# print(record1)
+# print(address)
